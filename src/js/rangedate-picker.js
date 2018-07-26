@@ -22,10 +22,10 @@ const availableMonths = {
 }
 
 const availableShortDays = {
-  DE: ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'],
-  EN: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-  FR: ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam'],
-  ID: ['Min', 'Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab']
+  DE: ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So'],
+  EN: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+  FR: ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'],
+  ID: ['Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab', 'Min']
 }
 
 const presetRangeLabel = {
@@ -339,7 +339,10 @@ export default {
     },
     getDayIndexInMonth: function (r, i, startMonthDay) {
       const date = (this.numOfDays * (r - 1)) + i
-      return date - startMonthDay
+
+      const startingDay = startMonthDay - 1 === -1 ? 6 : startMonthDay - 1
+
+      return date - startingDay
     },
     getDayCell (r, i, startMonthDay, endMonthDate) {
       const result = this.getDayIndexInMonth(r, i, startMonthDay)
