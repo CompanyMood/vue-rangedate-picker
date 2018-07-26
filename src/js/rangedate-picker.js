@@ -118,14 +118,14 @@ const defaultPresets = function (i18n = defaultI18n) {
       // get current day of month => 18 if current date 18.07.2018
       const dayOfMonth = n.getDate()
 
-      // if today is wednesday 18.07.2018, we need to go back 3 days to get
-      // sunday 15.07.2018.
+      // if today is wednesday 18.07.2018, we need to go back 2 days to get
+      // monday 16.07.2018.
       // - dayOfMonth => 18
-      // - dayOfWeek => 3
-      // - diff => 15
+      // - dayOfWeek => 2
+      // - diff => 16
       //
-      // if current day is a sunday, dayOfWeek returns 0 and we need to go back 7 days
-      const diff = dayOfMonth - (dayOfWeek === 0 ? 7 : dayOfWeek)
+      // if current day is a sunday, dayOfWeek returns 0 and we need to go back 6 days
+      const diff = dayOfMonth - dayOfWeek + (dayOfWeek === 0 ? -6 : 1)
 
       // set new date with day of month set to diff
       const startOfWeek = new Date(n.getFullYear(), n.getMonth(), diff + 1)
@@ -142,8 +142,9 @@ const defaultPresets = function (i18n = defaultI18n) {
     },
     lastWeek: function () {
       const n = new Date()
-      const day = n.getDay()
-      const diff = n.getDate() - (day === 0 ? 7 : day) - 7
+      const dayOfWeek = n.getDay()
+      const dayOfMonth = n.getDate()
+      const diff = dayOfMonth - dayOfWeek + (dayOfWeek === 0 ? -6 : 1) - 7
       const startOfWeek = new Date(n.getFullYear(), n.getMonth(), diff + 1)
       const endOfWeek = new Date(new Date(startOfWeek).setDate(startOfWeek.getDate() + 6))
       return {
